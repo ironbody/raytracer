@@ -10,13 +10,13 @@ namespace Raytracer
         public Vector3 Origin { get => origin; set => origin = value; }
         public Vector3 Direction { get => direction; set => direction = value; }
 
-        public Ray(Vector3 a, Vector3 b)
+        public Ray(Vector3 origin, Vector3 direction)
         {
-            this.origin = a;
-            this.direction = b;
+            this.origin = origin;
+            this.direction = direction;
         }
 
-        Vector3 PointAt(float t) => origin + t * direction; // t moves the point along the ray
+        public Vector3 PointAt(float t) => origin + t * direction; // t moves the point along the ray
         
     }
 }
