@@ -22,17 +22,17 @@ namespace Raytracer
             // this is magic and it didn't really make sense
             // basically it solves a quadratic equation to see if r hits the sphere
             // read chapter 4 of "Ray Tracing in One Weekend" by Peter Shirley to learn more
-            // the code is slightly modified from chapter 6
+            // the code is slightly modified from chapter 5
 
             Vector3 oc = r.Origin - Center;
             float a = Vector3.Dot(r.Direction, r.Direction);
             float b = 2f * Vector3.Dot(oc, r.Direction);
             float c = Vector3.Dot(oc, oc) - Radius * Radius;
-            double discriminant = b * b - a * c;
+            double discriminant = b * b - (4 * a * c);
 
             if (discriminant > 0)
             {
-                float temp = (-b - (float) Math.Sqrt(b * b - a * c)) / a;
+                float temp = (-b - (float) Math.Sqrt(discriminant)) / (2 * a);
                 if (temp < tMax && temp > tMin)
                 {
                     var t = temp;
@@ -42,7 +42,7 @@ namespace Raytracer
                     return true;
                 }
 
-                temp = (-b + (float) Math.Sqrt(b * b - a * c)) / a;
+                temp = (-b + (float) Math.Sqrt(discriminant)) / (2 * a);
                 if (temp < tMax && temp > tMin)
                 {
                     var t = temp;

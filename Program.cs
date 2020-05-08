@@ -13,14 +13,17 @@ namespace Raytracer
             var height = 100;
 
             var lowLeft = new Vector3(-2, -1, -1); // lower left corner of the view
+
+            // it's not really explained so far what these two vectors mean
             var hor = new Vector3(4, 0, 0);
             var ver = new Vector3(0, 2, 0);
+
             var origin = new Vector3(0);
 
             var world = new HitableList();
             world.Add(new Sphere(
                 new Vector3(0, 0, -1),
-                0.4f
+                0.5f
             ));
             world.Add(new Sphere(
                 new Vector3(0, -100.5f, -1),
@@ -44,7 +47,7 @@ namespace Raytracer
                     }
                 }
 
-                image.Save("images/test.png");
+                image.Save("images/test6.png");
             }
 
             Vector3 Color(Ray r, Hitable world)
@@ -54,9 +57,9 @@ namespace Raytracer
                 if (world.Hit(r, 0.0f, float.MaxValue, rec))
                 {
                     // System.Console.WriteLine(new Vector3(rec.normal.X + 1, rec.normal.Y + 1, rec.normal.Z + 1));
-
+                    var normal = Vector3.Normalize(rec.normal);
                     // Transfroms the record's normal vector to be between 0 and 1 and then returns its XYZ as RGB
-                    return 0.5f * new Vector3(rec.normal.X + 1, rec.normal.Y + 1, rec.normal.Z + 1);
+                    return 0.5f * new Vector3(normal.X + 1, normal.Y + 1, normal.Z + 1);
                 }
                 else
                 {
