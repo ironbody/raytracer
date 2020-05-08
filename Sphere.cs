@@ -28,7 +28,7 @@ namespace Raytracer
             float a = Vector3.Dot(r.Direction, r.Direction);
             float b = 2f * Vector3.Dot(oc, r.Direction);
             float c = Vector3.Dot(oc, oc) - Radius * Radius;
-            float discriminant = b * b - a * c;
+            double discriminant = b * b - a * c;
 
             if (discriminant > 0)
             {

@@ -17,11 +17,11 @@ namespace Raytracer
 
             foreach (var h in list)
             {
-                if (h.Hit(r, tMin, tMax, tempRec))
+                if (h.Hit(r, tMin, closestSoFar, tempRec))
                 {
                     hitAnything = true;
                     closestSoFar = tempRec.t;
-                    record = tempRec;
+                    record.Update(tempRec);
                 }
             }
             return hitAnything;
