@@ -11,8 +11,10 @@ namespace Raytracer
         {
             var width = 200;
             var height = 100;
+            var samples = 100;
 
             var camera = new Camera();
+            var rand = new Random();
 
             var world = new HitableList();
             world.Add(new Sphere(
@@ -30,14 +32,25 @@ namespace Raytracer
                 {
                     for (int i = 0; i < width; i++)
                     {
-                        var u = (float) i / (float) width; // the width as a float between 0 and 1
-                        var v = 1 - (float) j / (float) height; // the height as a float between 0 and 1
+                        var col = new Vector3(0);
 
-                        var r = camera.GetRay(u,v);
-                        var col = Color(r, world);
+                        for (int s = 0; s < samples; s++)
+                        {
+                            // the horizontal distance from the origin as a float between 0 and 1
+                            // with a random number between 0 and 1 added to it for each sample
+                            var u = i + (float) rand.NextDouble() / width;
 
+                            // the vertical distance from the origin as a float between 0 and 1
+                            // with a random number between 0 and 1 added to it for each sample
+                            var v = 1 - j + (float) rand.NextDouble() / height;
+
+                            var r = camera.GetRay(u, v);
+                            col += Color(r, world);
+
+                        }
+
+                        col /= samples;
                         image[i, j] = new Rgba32(col);
-
                     }
                 }
 
