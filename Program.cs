@@ -12,13 +12,7 @@ namespace Raytracer
             var width = 200;
             var height = 100;
 
-            var lowLeft = new Vector3(-2, -1, -1); // lower left corner of the view
-
-            // it's not really explained so far what these two vectors mean
-            var hor = new Vector3(4, 0, 0);
-            var ver = new Vector3(0, 2, 0);
-
-            var origin = new Vector3(0);
+            var camera = new Camera();
 
             var world = new HitableList();
             world.Add(new Sphere(
@@ -39,7 +33,7 @@ namespace Raytracer
                         var u = (float) i / (float) width; // the width as a float between 0 and 1
                         var v = 1 - (float) j / (float) height; // the height as a float between 0 and 1
 
-                        var r = new Ray(origin, lowLeft + u * hor + v * ver);
+                        var r = camera.GetRay(u,v);
                         var col = Color(r, world);
 
                         image[i, j] = new Rgba32(col);
@@ -47,7 +41,7 @@ namespace Raytracer
                     }
                 }
 
-                image.Save("images/test6.png");
+                image.Save("images/test7.png");
             }
 
             Vector3 Color(Ray r, Hitable world)
