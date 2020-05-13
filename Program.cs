@@ -63,12 +63,13 @@ namespace Raytracer
             {
                 var rec = new HitRecord();
 
-                if (world.Hit(r, 0.0f, float.MaxValue, rec))
+                if (world.Hit(r, 0.001f, float.MaxValue, rec))
                 {
-                    // System.Console.WriteLine(new Vector3(rec.normal.X + 1, rec.normal.Y + 1, rec.normal.Z + 1));
-                    var normal = Vector3.Normalize(rec.normal);
+                    var target = rec.p + rec.normal + RandomInUnitSphere();
+
                     // Transfroms the record's normal vector to be between 0 and 1 and then returns its XYZ as RGB
-                    return 0.5f * new Vector3(normal.X + 1, normal.Y + 1, normal.Z + 1);
+                    // return 0.5f * new Vector3(normal.X + 1, normal.Y + 1, normal.Z + 1);
+                    return 0.5f * Color(new Ray(rec.p, target - rec.p), world);
                 }
                 else
                 {
@@ -76,6 +77,19 @@ namespace Raytracer
                     var t = 0.5f * (unitDirection.Y + 1.0f); // scales vector so it goes between 0 and 1
                     return (1 - t) * new Vector3(1f) + t * new Vector3(0.5f, 0.7f, 1.0f); // linearly interpolates color 
                 }
+            }
+
+            Vector3 RandomInUnitSphere()
+            {
+                var p = new Vector3();
+
+                do
+                {
+                    // This generates a random point with XYZ between -1 and 1
+                    p = 2 * new Vector3((float) rand.NextDouble(), (float) rand.NextDouble(), (float) rand.NextDouble()) - new Vector3(1);
+                } while (p.LengthSquared() >= 1f);
+
+                return p;
             }
         }
     }
