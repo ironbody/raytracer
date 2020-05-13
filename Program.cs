@@ -38,23 +38,25 @@ namespace Raytracer
                         {
                             // the horizontal distance from the origin as a float between 0 and 1
                             // with a random number between 0 and 1 added to it for each sample
-                            var u = i + (float) rand.NextDouble() / width;
+                            var u = (i + (float) rand.NextDouble()) / (float) width;
 
                             // the vertical distance from the origin as a float between 0 and 1
                             // with a random number between 0 and 1 added to it for each sample
-                            var v = 1 - j + (float) rand.NextDouble() / height;
+                            var v = 1 - ((j + (float) rand.NextDouble()) / (float) height);
 
                             var r = camera.GetRay(u, v);
                             col += Color(r, world);
 
                         }
 
-                        col /= samples;
+                        col /= (float) samples;
+
                         image[i, j] = new Rgba32(col);
                     }
                 }
 
                 image.Save("images/test7.png");
+
             }
 
             Vector3 Color(Ray r, Hitable world)
