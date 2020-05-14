@@ -20,7 +20,7 @@ namespace Raytracer
                 if (h.Hit(r, tMin, closestSoFar, tempRec))
                 {
                     hitAnything = true;
-                    closestSoFar = tempRec.t;
+                    closestSoFar = tempRec.T;
                     record.Update(tempRec);
                 }
             }

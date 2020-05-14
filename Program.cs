@@ -49,6 +49,7 @@ namespace Raytracer
 
                         }
 
+                        // generates the average color over all the samples
                         col /= (float) samples;
 
                         // gamma correction
@@ -71,12 +72,12 @@ namespace Raytracer
                 if (world.Hit(r, 0.001f, float.MaxValue, rec))
                 {
                     // generates a random point in a sphere that is tangent to the hitpoint
-                    var target = rec.p + rec.normal + RandomInUnitSphere();
+                    var target = rec.P + rec.Normal + RandomInUnitSphere();
 
                     // sends out a new ray in the direction of the target from the hitpoint
                     // returns when one of the subsequent rays either hits the sky or the t values become so close that they're basically zero
                     // the 0.5 means that 50% of the rays are absorbed into the material
-                    return 0.5f * Color(new Ray(rec.p, target - rec.p), world);
+                    return 0.5f * Color(new Ray(rec.P, target - rec.P), world);
                 }
                 else
                 {
