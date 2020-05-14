@@ -32,6 +32,7 @@ namespace Raytracer
 
             if (discriminant > 0)
             {
+                // temp is the value of t where it intersects with the sphere
                 float temp = (-b - (float) Math.Sqrt(discriminant)) / (2 * a);
                 if (temp < tMax && temp > tMin)
                 {
